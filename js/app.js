@@ -1,7 +1,6 @@
 'use strict';
 
 let productsArray = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
-let productsArrayExtension = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
 
 
 const imageSection = document.getElementById( 'imageSection' );
@@ -33,8 +32,8 @@ Products.counter = 0;
 
 //////////
 
-for ( let i = 0; i < productsArrayExtension.length; i++ ) {
-  new Products( productsArrayExtension[i] );
+for ( let i = 0; i < productsArray.length; i++ ) {
+  new Products( productsArray[i],productsArray[i] );
 }
 
 function renderNewProducts() {
@@ -117,9 +116,9 @@ imageSection.addEventListener( 'click', handelClick );
 function displayResult() {
   const parentElement = document.getElementById( 'result' );
   const ulElement = document.createElement( 'ul' );
-  parentElement.appendChild( 'ul' );
+  parentElement.appendChild( 'ulElement' );
 
-  for ( let i = 0; i < productsArray.all.length; i++ ) {
+  for ( let i = 0; i < Products.all.length; i++ ) {
 
     const liElement = document.createElement( 'li' );
     ulElement.appendChild( 'liElement' );
