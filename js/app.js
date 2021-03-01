@@ -1,8 +1,8 @@
 'use strict';
 
-let productsArray = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+let productsArray = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
 
-
+let button = document.getElementById( 'noor' );
 const imageSection = document.getElementById( 'imageSection' );
 const leftImage = document.getElementById( 'leftImage' );
 const rightImage = document.getElementById( 'rightImage' );
@@ -17,10 +17,9 @@ let rightProductIndex = 0;
 
 const clickCounter = 25;
 
-function Products( name, nameExtension ) {
-  this.name = name;
-  this.nameExtension = nameExtension;
-  this.image = `./img/${this.nameExtension}.jpg`;
+function Products( name ) {
+  this.name = name.split('.')[0];
+  this.image = `./img/${name}`;
   this.clicks = 0;
   this.shown = 0;
   Products.all.push( this );
@@ -33,10 +32,13 @@ Products.counter = 0;
 //////////
 
 for ( let i = 0; i < productsArray.length; i++ ) {
-  new Products( productsArray[i],productsArray[i] );
+  new Products(  productsArray[i] );
 }
 
+
 function renderNewProducts() {
+  button.style.visibility = 'hidden';
+
   let leftIndex = randomNumber( 0, Products.all.length - 1 );
   leftImage.src = Products.all[leftIndex].image;
   leftImage.alt = Products.all[leftIndex].name;
@@ -81,8 +83,8 @@ function renderNewProducts() {
 }
 
 
-let button = document.getElementById( 'result' );
-button.style.visibility = 'hidden';
+
+
 
 function handelClick( event ) {
 
@@ -106,8 +108,7 @@ function handelClick( event ) {
     }
   }
   else {
-    button.style.visibility = 'visible';
-    console.log( Products.all );
+    noora();
   }
 }
 
@@ -115,28 +116,32 @@ imageSection.addEventListener( 'click', handelClick );
 
 function displayResult() {
   const parentElement = document.getElementById( 'result' );
-  const ulElement = document.createElement( 'ul' );
-  parentElement.appendChild( 'ulElement' );
 
   for ( let i = 0; i < Products.all.length; i++ ) {
 
     const liElement = document.createElement( 'li' );
-    ulElement.appendChild( 'liElement' );
+    parentElement.appendChild( liElement );
     liElement.textContent = Products.all[i].name + ' had ' + Products.all[i].clicks + ' voted, and was seen ' + Products.all[i].shown + ' times.';
 
   }
 
 }
 
+
+function noora(){
+  button.style.visibility = 'visible';
+}
+
 function removeListener() {
   document.getElementById( 'imageSection' ).removeEventListener( 'click', handelClick );
 }
 
-// Helper function
+//  Helper function
 function randomNumber( min, max ) {
   return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
 }
 renderNewProducts();
+
 
 
 
