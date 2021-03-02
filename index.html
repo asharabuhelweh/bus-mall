@@ -13,6 +13,7 @@
 </head>
 <body>
   <header>
+    
     <nav>
       <a></a>
     </nav>
@@ -27,14 +28,21 @@
       <img src="" alt="" id="rightImage">
      
     </section>
-    <button id="noor" onclick="displayResult()">View Results</button>
+
+    <button id="noor" onclick="displayResult() ; renderChart()">View Results</button>
 <div id="result">
 
 </div>
+<canvas id="myChart"></canvas>
+
   </main>
 
-  <footer></footer>
+  <footer>
+    <p>all right reserve 2021&copy;</p>
 
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
