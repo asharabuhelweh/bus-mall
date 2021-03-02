@@ -14,7 +14,7 @@ const middleImage = document.getElementById( 'middleImage' );
 let leftProductIndexMemory = 0;
 let middleProductIndexMemory = 0;
 let rightProductIndexMemory = 0;
-let previous =[];
+let previous = [];
 
 const clickCounter = 25;
 
@@ -43,8 +43,9 @@ function renderNewProducts() {
   // find a random left image
   let leftIndex;
   do {
-    leftIndex = randomNumber( 0, Products.all.length - 1 );}
-  while( previous.indexOf( leftIndex )!== -1 ) ;
+    leftIndex = randomNumber( 0, Products.all.length - 1 );
+  }
+  while ( previous.indexOf( leftIndex ) !== -1 );
   // } while ( leftIndex === leftProductIndexMemory && ( leftIndex===rightProductIndexMemory|| leftIndex=== rightIndex ) && ( leftIndex===middleIndex||leftIndex===middleProductIndexMemory ) );
   leftImage.src = Products.all[leftIndex].image;
   leftImage.alt = Products.all[leftIndex].name;
@@ -55,8 +56,9 @@ function renderNewProducts() {
   let rightIndex;
   do {
 
-    rightIndex = randomNumber( 0, Products.all.length - 1 );}
-  while( rightIndex===leftIndex ||previous.indexOf( rightIndex )!== -1 ) ;
+    rightIndex = randomNumber( 0, Products.all.length - 1 );
+  }
+  while ( rightIndex === leftIndex || previous.indexOf( rightIndex ) !== -1 );
 
   // } while ( rightIndex === rightProductIndexMemory && ( rightIndex===leftProductIndexMemory|| rightIndex ===leftIndex ) && ( rightIndex===middleIndex||rightIndex===middleProductIndexMemory ) );
   rightImage.src = Products.all[rightIndex].image;
@@ -68,8 +70,9 @@ function renderNewProducts() {
   // find a random middle image, that is not the same as before, and not the same as the right and the left image
   let middleIndex;
   do {
-    middleIndex = randomNumber( 0, Products.all.length - 1 );}
-  while( leftIndex===middleIndex || rightIndex===middleIndex||previous.indexOf( middleIndex )!== -1 ) ;
+    middleIndex = randomNumber( 0, Products.all.length - 1 );
+  }
+  while ( leftIndex === middleIndex || rightIndex === middleIndex || previous.indexOf( middleIndex ) !== -1 );
 
   // } while ( middleIndex === middleProductIndexMemory && ( middleIndex===rightProductIndexMemory|| middleIndex=== rightIndex ) && ( middleIndex===leftIndex || middleIndex===middleProductIndexMemory ) );
   middleImage.src = Products.all[middleIndex].image;
@@ -90,6 +93,8 @@ function renderNewProducts() {
 
 
 function handelClick( event ) {
+  event.preventDefault();
+
 
   if ( Products.counter <= clickCounter ) {
     const clickedElement = event.target;
@@ -108,12 +113,19 @@ function handelClick( event ) {
 
       Products.counter++;
       renderNewProducts();
+      localStorage.setItem( 'result', JSON.stringify( Products.all ) );
+      console.log( Products.prototype );
     }
+
   }
+
+
   else {
     noora();
   }
+
 }
+
 
 imageSection.addEventListener( 'click', handelClick );
 
@@ -131,6 +143,8 @@ function displayResult() {
 }
 
 
+
+
 function noora() {
   button.style.visibility = 'visible';
 }
@@ -146,6 +160,16 @@ function removeListener() {
 // renderNewProducts();
 
 
+function getData() {
+  const data = localStorage.getItem( 'result' );
+  if ( data ) {
+    const objData = JSON.parse( data );
+    Products.all = objData;
+    renderNewProducts();
+  }
+}
+button.addEventListener( 'noor', handelClick );
+getData();
 
 
 function renderChart() {
