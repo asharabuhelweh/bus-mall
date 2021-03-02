@@ -14,6 +14,7 @@ const middleImage = document.getElementById( 'middleImage' );
 let leftProductIndexMemory = 0;
 let middleProductIndexMemory = 0;
 let rightProductIndexMemory = 0;
+let previous =[];
 
 const clickCounter = 25;
 
@@ -42,8 +43,9 @@ function renderNewProducts() {
   // find a random left image
   let leftIndex;
   do {
-    leftIndex = randomNumber( 0, Products.all.length - 1 );
-  } while ( leftProductIndexMemory === leftIndex );
+    leftIndex = randomNumber( 0, Products.all.length - 1 );}
+  while( previous.indexOf( leftIndex )!== -1 ) ;
+  // } while ( leftIndex === leftProductIndexMemory && ( leftIndex===rightProductIndexMemory|| leftIndex=== rightIndex ) && ( leftIndex===middleIndex||leftIndex===middleProductIndexMemory ) );
   leftImage.src = Products.all[leftIndex].image;
   leftImage.alt = Products.all[leftIndex].name;
   // remember the left image
@@ -53,9 +55,10 @@ function renderNewProducts() {
   let rightIndex;
   do {
 
-    rightIndex = randomNumber( 0, Products.all.length - 1 );
+    rightIndex = randomNumber( 0, Products.all.length - 1 );}
+  while( rightIndex===leftIndex ||previous.indexOf( rightIndex )!== -1 ) ;
 
-  } while ( leftIndex === rightIndex || rightProductIndexMemory === rightIndex );
+  // } while ( rightIndex === rightProductIndexMemory && ( rightIndex===leftProductIndexMemory|| rightIndex ===leftIndex ) && ( rightIndex===middleIndex||rightIndex===middleProductIndexMemory ) );
   rightImage.src = Products.all[rightIndex].image;
   rightImage.alt = Products.all[rightIndex].name;
   // remember the right image
@@ -65,23 +68,23 @@ function renderNewProducts() {
   // find a random middle image, that is not the same as before, and not the same as the right and the left image
   let middleIndex;
   do {
-    middleIndex = randomNumber( 0, Products.all.length - 1 );
-  } while ( middleIndex === rightIndex || middleIndex === leftIndex || middleProductIndexMemory === middleIndex );
+    middleIndex = randomNumber( 0, Products.all.length - 1 );}
+  while( leftIndex===middleIndex || rightIndex===middleIndex||previous.indexOf( middleIndex )!== -1 ) ;
+
+  // } while ( middleIndex === middleProductIndexMemory && ( middleIndex===rightProductIndexMemory|| middleIndex=== rightIndex ) && ( middleIndex===leftIndex || middleIndex===middleProductIndexMemory ) );
   middleImage.src = Products.all[middleIndex].image;
   middleImage.alt = Products.all[middleIndex].name;
   // remember the middle image
-  middleProductIndexMemory = middleIndex;
+  // middleProductIndexMemory = middleIndex;
+  previous[0] = leftIndex;
+  previous[1] = rightIndex;
+  previous[2] = middleIndex;
 
   Products.all[leftIndex].shown++;
   Products.all[middleIndex].shown++;
   Products.all[rightIndex].shown++;
 
-
-
-  // rightImage.src = Product.all[0].image;
-
 }
-
 
 
 
